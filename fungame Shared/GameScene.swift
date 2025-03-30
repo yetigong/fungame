@@ -282,6 +282,19 @@ class GameScene: SKScene {
         addChild(restartButton)
     }
     
+    func restartGame() {
+        // Remove all existing nodes
+        removeAllChildren()
+        
+        // Reset game state
+        playerHealth = 100
+        score = 0
+        gameOver = false
+        
+        // Set up new game
+        setUpScene()
+    }
+    
     func performAttack() {
         if attackCooldown { return }
         
@@ -393,19 +406,6 @@ extension GameScene {
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesEnded(touches, with: event)
-    }
-    
-    func restartGame() {
-        // Remove all existing nodes
-        removeAllChildren()
-        
-        // Reset game state
-        playerHealth = 100
-        score = 0
-        gameOver = false
-        
-        // Set up new game
-        setUpScene()
     }
 }
 #endif
