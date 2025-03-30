@@ -1,0 +1,29 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  swiftlint:
+    name: SwiftLint
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install SwiftLint
+      run: |
+        brew install swiftlint
+        
+    - name: Run SwiftLint
+      run: |
+        swiftlint lint --reporter codeclimate-logger --reporter json > swiftlint-report.json
+        
+    - name: Upload SwiftLint Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: swiftlint-report
+        path: swiftlint-report.json 
